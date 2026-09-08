@@ -3,14 +3,19 @@ import requests
 
 st.title("Crypto Price Dashboard 🚀")
 
-url = "https://api.coinbase.com/v2/prices/BTC-USD/spot"
+coins = ["BTC", "ETH", "SOL"]
 
-response = requests.get(url, timeout=10)
-data = response.json()
+cols = st.columns(3)
 
-btc_price = float(data["data"]["amount"])
+for i, coin in enumerate(coins):
+    url = f"https://api.coinbase.com/v2/prices/{coin}-USD/spot"
 
-st.metric(
-    label="Bitcoin Price (BTC/USD)",
-    value=f"${btc_price:,.2f}"
-)
+    response = requests.get(url, timeout=10)
+    data = response.json()
+
+    price = float(data["data"]["amount"])
+
+    cols[i].metric(
+        label=f"{coin}/USD",
+        value=f"${price:,.2f}"
+    )
