@@ -3,8 +3,10 @@ import requests
 
 st.title("Crypto Price Dashboard 🚀")
 
-coins = ["BTC", "ETH", "SOL"]
+if st.button("Refresh Price"):
+    st.rerun()
 
+coins = ["BTC", "ETH", "SOL"]
 cols = st.columns(3)
 
 for i, coin in enumerate(coins):
