@@ -1,14 +1,16 @@
 import streamlit as st
-import pandas as pd
+import requests
 
-st.title("My First Cloud App 🚀")
-st.write("ทดลองใช้ pandas บน Streamlit Cloud")
+st.title("Crypto Price Dashboard 🚀")
 
-data = {
-    "Coin": ["BTC", "ETH", "SOL"],
-    "Price": [65000, 3200, 180]
-}
+url = "https://api.coinbase.com/v2/prices/BTC-USD/spot"
 
-df = pd.DataFrame(data)
+response = requests.get(url, timeout=10)
+data = response.json()
 
-st.dataframe(df)
+btc_price = float(data["data"]["amount"])
+
+st.metric(
+    label="Bitcoin Price (BTC/USD)",
+    value=f"${btc_price:,.2f}"
+)
