@@ -1,6 +1,14 @@
 import streamlit as st
+import pandas as pd
 
 st.title("My First Cloud App 🚀")
-st.write("My Python + Streamlit application is running on the cloud!")
+st.write("ทดลองใช้ pandas บน Streamlit Cloud")
 
-st.success("Deployment successful!")
+data = {
+    "Coin": ["BTC", "ETH", "SOL"],
+    "Price": [65000, 3200, 180]
+}
+
+df = pd.DataFrame(data)
+
+st.dataframe(df)
